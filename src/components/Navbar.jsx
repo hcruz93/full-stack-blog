@@ -1,4 +1,5 @@
 import { useState } from "react"
+import  Images  from "./Images"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -6,7 +7,7 @@ const Navbar = () => {
     <div className='w-full h-16 md:h-20 flex items-center justify-between'>
       {/* LOGO */}
       <div className="flex items-center gap-4 text-2xl font-bold">
-        <img src="/logo.png" className="w-8 h-8" alt=""/>
+        <Images src="logo.png" alt="lama Logo" w={32} h={32}/>
         <span>lamalog</span>
       </div>
       {/* MOBILE MENU */}
