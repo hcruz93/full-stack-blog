@@ -32,7 +32,7 @@ const postSchema = new Schema(
       default:false,
     },
     vist:{
-      type:Boolean,
+      type:Number,
       default:0,
     },
   },
