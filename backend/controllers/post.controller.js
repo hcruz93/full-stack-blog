@@ -14,6 +14,7 @@ export const getPost = async (req, res) => {
 export const createPost = async (req, res) => {
 
   const clerkUserId = req.auth.userId
+  console.log(clerkUserId);
 
   if (!clerkUserId) {
     return res.status(401).json("Not authenticated!")
@@ -33,7 +34,10 @@ export const createPost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
 
-  const clerkUserId = req.auth.userId
+  const clerkUserId = req.auth.userId //Cambio con el video 
+//  const { userId: clerkUserId } = req.auth(); //TODO revisar este cambio si es viable
+
+  console.log(clerkUserId);
 
   if (!clerkUserId) {
     return res.status(401).json("Not authenticated!")
@@ -41,13 +45,16 @@ export const deletePost = async (req, res) => {
 
   const user = await User.findOne({ clerkUserId })
 
-   const Post = await Post.findOneAndDelete({ 
+   const deletedPost = await Post.findOneAndDelete({ 
     _id: req.params.id, 
     user:user._id 
   })
 
-  // const newPost = new Post(req.body)
+  if (!deletedPost) {
+    return res.status(403).json("You can delete only your posts!")
+  }
 
+  // const newPost = new Post(req.body) //TODO revisar para que era
   // const post = await Post.findByIdAndDelete(req.params.id)
   res.status(200).json("Post has been deleted")
 };

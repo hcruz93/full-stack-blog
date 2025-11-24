@@ -1,11 +1,22 @@
 import { useState } from "react"
 import  Images  from "./Images"
 import { Link } from "react-router"
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react"
+import { SignedIn, SignedOut, SignInButton, useAuth, UserButton } from "@clerk/clerk-react"
+import { useEffect } from "react"
 
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+
+  const {getToken} = useAuth()
+
+  // useEffect(()=>{
+  //   getToken().then((token)=>console.log(token))
+  // },[])
+  useEffect(() => {
+    getToken({ template: "backend" }).then(token => console.log(token));
+  }, []); //TODO Se cambio backend se creo en el dashboard sección JWT templates revisar que es
+
   return (
     <div className='w-full h-16 md:h-20 flex items-center justify-between'>
       {/* LOGO */}
